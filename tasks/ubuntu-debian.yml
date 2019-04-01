@@ -15,7 +15,7 @@
 
 - name: create APT auto-upgrades configuration
   template:
-    src: auto-upgrades.j2
+    src: ubuntu/auto-upgrades.j2
     dest: /etc/apt/apt.conf.d/20auto-upgrades
     owner: root
     group: root
@@ -23,7 +23,7 @@
 
 - name: create unattended-upgrades configuration
   template:
-    src: unattended-upgrades.j2
+    src: ubuntu/unattended-upgrades.j2
     dest: /etc/apt/apt.conf.d/50unattended-upgrades
     owner: root
     group: root
