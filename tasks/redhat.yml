@@ -1,0 +1,17 @@
+---
+- name: Install yum-cron.
+  yum:
+    name: yum-cron
+    state: present
+    enablerepo: "rhel-7-server-optional-rpms"
+
+- name: Ensure yum-cron is running and enabled on boot.
+  service:
+    name: yum-cron
+    state: started
+    enabled: yes
+
+- name: Configure autoupdates
+  template:
+    src: "redhat/yum-cron.conf.j2"
+    dest: "/etc/yum/yum-cron.conf"
