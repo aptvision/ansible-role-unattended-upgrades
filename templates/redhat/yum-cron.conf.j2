@@ -9,9 +9,9 @@
 update_cmd =  {{ unattended_yum_update_cmd }}
 
 {% if unattended_enable %}
-  {% set offOn = "yes" %}
+  {% set on_off = "yes" %}
     {% else %}
-   {%set offOn = "no" %}
+   {%set on_off = "no" %}
 {% endif %}
 
 # Whether a message should be emitted when updates are available,
@@ -61,7 +61,7 @@ email_from = root@localhost
 email_to = {{ unattended_mail }}
 
 # Name of the host to connect to to send email messages.
-email_host = {{ unattended_mail_host }}
+email_host = localhost
 {% else %}
 # How to send messages.  Valid options are stdio and email.  If
 # emit_via includes stdio, messages will be sent to stdout; this is useful
