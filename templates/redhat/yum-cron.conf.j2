@@ -1,23 +1,30 @@
 [commands]
 #  What kind of update to use:
-# default                            = yum upgrade
+# defauslt                            = yum upgrade
 # security                           = yum --security upgrade
 # security-severity:Critical         = yum --sec-severity=Critical upgrade
 # minimal                            = yum --bugfix update-minimal
 # minimal-security                   = yum --security update-minimal
 # minimal-security-severity:Critical =  --sec-severity=Critical update-minimal
-update_cmd =  {{ unattended_cron_update_cmd }}
+update_cmd =  {{ unattended_yum_update_cmd }}
+
+{% if unattended_enable %}
+  {% set offOn = "yes" %}
+    {% else %}
+   {%set offOn = "no" %}
+{% endif %}
 
 # Whether a message should be emitted when updates are available,
 # were downloaded, or applied.
-update_messages = {{  unattended_cron_update_messages }}
+update_messages = {{ on_off }}
 
 # Whether updates should be downloaded when they are available.
-download_updates = {{ unattended_cron_download_updates }}
+download_updates = {{ on_off }}
 
 # Whether updates should be applied when they are available.  Note
 # that download_updates must also be yes for the update to be applied.
-apply_updates = {{ unattended_cron_apply_updates }}
+apply_updates = {{ on_off }}
+
 
 # Maximum amout of time to randomly sleep, in minutes.  The program
 # will sleep for a random amount of time between 0 and random_sleep
@@ -25,37 +32,44 @@ apply_updates = {{ unattended_cron_apply_updates }}
 # times that multiple systems will access update servers.  If
 # random_sleep is 0 or negative, the program will run immediately.
 # 6*60 = 360
-random_sleep = {{ unattended_cron_random_sleep }}
+random_sleep = {{ unattended_random_sleep }}
 
 
 [emitters]
 # Name to use for this system in messages that are emitted.  If
 # system_name is None, the hostname will be used.
-system_name = {{ unattended_cron_system_name }}
+system_name = None
 
+# The width, in characters, that messages that are emitted should be
+# formatted to.
+output_width = 80
+
+{% if unattended_mail %}
 # How to send messages.  Valid options are stdio and email.  If
 # emit_via includes stdio, messages will be sent to stdout; this is useful
 # to have cron send the messages.  If emit_via includes email, this
 # program will send email itself according to the configured options.
 # If emit_via is None or left blank, no messages will be sent.
-emit_via = {{ unattended_cron_emit_via }}
-
-# The width, in characters, that messages that are emitted should be
-# formatted to.
-output_width = {{ unattended_cron_output_width }}
-
+emit_via = email
 
 [email]
 # The address to send email messages from.
 # NOTE: 'localhost' will be replaced with the value of system_name.
-email_from = {{ unattended_cron_email_from }}
+email_from = root@localhost
 
 # List of addresses to send messages to.
-email_to = {{ unattended_mail_to }}
+email_to = {{ unattended_mail }}
 
 # Name of the host to connect to to send email messages.
-email_host = {{ unattended_cron_email_host }}
-
+email_host = {{ unattended_mail_host }}
+{% else %}
+# How to send messages.  Valid options are stdio and email.  If
+# emit_via includes stdio, messages will be sent to stdout; this is useful
+# to have cron send the messages.  If emit_via includes email, this
+# program will send email itself according to the configured options.
+# If emit_via is None or left blank, no messages will be sent.
+emit_via = stdio
+{% endif %}
 
 [groups]
 # NOTE: This only works when group_command != objects, which is now the default
@@ -72,7 +86,7 @@ group_package_types = mandatory, default
 # -4: critical
 # -3: critical+errors
 # -2: critical+errors+warnings (default)
-debuglevel = {{ unattended_cron_debuglevel }}
+debuglevel = {{ unattended_yum_debuglevel }}
 
 # skip_broken = True
 mdpolicy = group:main

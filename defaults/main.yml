@@ -1,4 +1,7 @@
 ---
+# Enable_Disable updates  Ubuntu \ RedHat
+unattended_enable: false
+
 # Cache update time for apt module
 unattended_cache_valid_time: 3600
 
@@ -47,6 +50,8 @@ unattended_mail: false
 # is to always send a mail if Unattended-Upgrade::Mail is set
 unattended_mail_only_on_error: false
 
+unattended_mail_host: localhost
+
 #Unattended-Upgrade::Remove-Unused-Dependencies
 # Do automatic removal of new unused dependencies after the upgrade
 # (equivalent to apt-get autoremove)
@@ -94,8 +99,6 @@ unattended_autoclean_interval: 7
 #     3:  + trace on
 #unattended_verbose: 0
 
-## Cron systems only
-
 #APT::Periodic::RandomSleep
 # When the apt job starts, it will sleep for a random period between 0
 # and APT::Periodic::RandomSleep seconds
@@ -103,7 +106,7 @@ unattended_autoclean_interval: 7
 # minutes (1800 seconds) so that the mirror servers are not crushed by
 # everyone running their updates all at the same time
 # Kept undefined to allow default (1800)
-#unattended_random_sleep: 0
+unattended_random_sleep: 1800
 
 #Dpkg::Options
 # Provide dpkg options that take effect during unattended upgrades.
@@ -122,6 +125,7 @@ unattended_dpkg_options: []
 #unattended_dl_limit: 70
 
 
+## YUM systems only
 
 #  What kind of update to use:
 # default                            = yum upgrade
@@ -130,32 +134,11 @@ unattended_dpkg_options: []
 # minimal                            = yum --bugfix update-minimal
 # minimal-security                   = yum --security update-minimal
 # minimal-security-severity:Critical =  --sec-severity=Critical update-minimal
+unattended_yum_update_cmd: "security-severity:Critical"
 
-unattended_cron_update_cmd: "security-severity:Critical"
-
-unattended_cron_update_messages: "yes"
-
-unattended_cron_download_updates: "yes"
-
-unattended_cron_apply_updates: "yes"
-
-unattended_cron_random_sleep: 10
-
-unattended_cron_system_name: None
-
-unattended_cron_emit_via: email
-
-unattended_cron_output_width: 80
-
-unattended_cron_email_from: root@localhost
-
-unattended_cron_email_host: localhost
-
-unattended_mail_to: lucas.marcolino@aptvision.com
-
-unattended_cron_debuglevel: -2
-
-
-
-
+# Use this to filter Yum core messages
+# -4: critical
+# -3: critical+errors
+# -2: critical+errors+warnings (default)
+unattended_yum_debuglevel: -2
 
