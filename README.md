@@ -3,7 +3,7 @@
 [![Build Status of branch master](https://img.shields.io/travis/jnv/ansible-role-unattended-upgrades/master.svg?style=flat-square)](https://travis-ci.org/jnv/ansible-role-unattended-upgrades)
 [![Ansible Role: jnv.unattended-upgrades](https://img.shields.io/ansible/role/8068.svg?style=flat-square)](https://galaxy.ansible.com/jnv/unattended-upgrades/)
 
-Install and setup [unattended-upgrades](https://launchpad.net/unattended-upgrades) for Ubuntu and Debian (since Wheezy), to periodically install security upgrades.
+Install and setup [unattended-upgrades](https://launchpad.net/unattended-upgrades) for Ubuntu, Debian (since Wheezy) and RedHat to periodically install security upgrades.
 
 **NOTE:** If you have used version 0.0.1 of the role, you can delete the file `/etc/apt/apt.conf.d/10periodic` as it is not needed anymore. You can use the following one-shot command:
 
@@ -11,13 +11,13 @@ Install and setup [unattended-upgrades](https://launchpad.net/unattended-upgrade
 
 ## Requirements
 
-The role uses [apt module](http://docs.ansible.com/apt_repository_module.html) which has additional dependencies.
+On Ubuntu/Debian systems this role uses [apt module](http://docs.ansible.com/apt_repository_module.html) which has additional dependencies. On RedHat systems it configures unattended updates using the yum-cron package.
 
 If you set `unattended_mail` to an e-mail address, make sure `mailx` command is available and your system is able to send e-mails.
 
-The role requires unattended-upgrades version 0.70 and newer, which is available since Debian Wheezy and Ubuntu 12.04 respectively. This is due to [Origins Patterns](#origins-patterns) usage; if this is not available on your system, you may use [the first version of the role](https://github.com/jnv/ansible-role-unattended-upgrades/tree/v0.1).
+Note for Ubuntu systems: The role requires unattended-upgrades version 0.70 and newer, which is available since Debian Wheezy and Ubuntu 12.04 respectively. This is due to [Origins Patterns](#origins-patterns) usage; if this is not available on your system, you may use [the first version of the role](https://github.com/jnv/ansible-role-unattended-upgrades/tree/v0.1).
 
-### Automatic Reboot
+### Automatic Reboot (Ubuntu/Debian only)
 
 If you enable automatic reboot feature (`unattended_automatic_reboot`), the role will attempt to install `update-notifier-common` package, which is required on some systems for detecting and executing reboot after the upgrade. You may optionally define a specific time for rebooting (`unattended_automatic_reboot_time`).
 
@@ -78,7 +78,7 @@ On some hosts you may find that the unattended-upgrade's cronfile `/etc/cron.dai
 * `unattended_dl_limit`: Limit the download speed in kb/sec using apt bandwidth limit feature.
     * Default: disabled
 
-## Origins Patterns
+## Origins Patterns (Ubuntu/Debian only)
 
 Origins Pattern is a more powerful alternative to the Allowed Origins option used in previous versions of unattended-upgrade.
 
