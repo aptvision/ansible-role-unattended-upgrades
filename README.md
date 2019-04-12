@@ -29,6 +29,8 @@ On some hosts you may find that the unattended-upgrade's cronfile `/etc/cron.dai
 
 ## Role Variables
 
+* `unattended_enable`: Set updates Enable\Disable. 
+  * Default:`true`
 * `unattended_cache_valid_time`: Update the apt cache if its older than the given time in seconds; passed to the [apt module](https://docs.ansible.com/ansible/latest/apt_module.html) during package installation.
     * Default: `3600`
 * `unattended_origins_patterns`: array of origins patterns to determine whether the package can be automatically installed, for more details see [Origins Patterns](#origins-patterns) below.
@@ -77,6 +79,9 @@ On some hosts you may find that the unattended-upgrade's cronfile `/etc/cron.dai
     * Default: `[]`
 * `unattended_dl_limit`: Limit the download speed in kb/sec using apt bandwidth limit feature.
     * Default: disabled
+*`unattended_yum_update_cmd`: Just to set YUM, wich kind of update to use: e.g  `yum --sec-severity=Critical upgrade` or `yum --bugfix update-minimal` 
+    * Default:`security-severity:Critical`
+    
 
 ## Origins Patterns (Ubuntu/Debian only)
 

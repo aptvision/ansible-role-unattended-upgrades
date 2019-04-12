@@ -134,9 +134,4 @@ unattended_dpkg_options: []
 # minimal-security-severity:Critical =  --sec-severity=Critical update-minimal
 unattended_yum_update_cmd: "security-severity:Critical"
 
-# Use this to filter Yum core messages
-# -4: critical
-# -3: critical+errors
-# -2: critical+errors+warnings (default)
-unattended_yum_debuglevel: -2
 
