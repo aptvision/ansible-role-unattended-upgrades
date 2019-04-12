@@ -1,4 +1,7 @@
 ---
+# Enable_Disable updates  Ubuntu \ RedHat
+unattended_enable: true
+
 # Cache update time for apt module
 unattended_cache_valid_time: 3600
 
@@ -94,8 +97,6 @@ unattended_autoclean_interval: 7
 #     3:  + trace on
 #unattended_verbose: 0
 
-## Cron systems only
-
 #APT::Periodic::RandomSleep
 # When the apt job starts, it will sleep for a random period between 0
 # and APT::Periodic::RandomSleep seconds
@@ -103,7 +104,7 @@ unattended_autoclean_interval: 7
 # minutes (1800 seconds) so that the mirror servers are not crushed by
 # everyone running their updates all at the same time
 # Kept undefined to allow default (1800)
-#unattended_random_sleep: 0
+unattended_random_sleep: 1800
 
 #Dpkg::Options
 # Provide dpkg options that take effect during unattended upgrades.
@@ -120,3 +121,17 @@ unattended_dpkg_options: []
 
 # Use apt bandwidth limit feature, this example limits the download speed to 70kb/sec
 #unattended_dl_limit: 70
+
+
+## YUM systems only
+
+#  What kind of update to use:
+# default                            = yum upgrade
+# security                           = yum --security upgrade
+# security-severity:Critical         = yum --sec-severity=Critical upgrade
+# minimal                            = yum --bugfix update-minimal
+# minimal-security                   = yum --security update-minimal
+# minimal-security-severity:Critical =  --sec-severity=Critical update-minimal
+unattended_yum_update_cmd: "security-severity:Critical"
+
+
