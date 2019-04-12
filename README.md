@@ -79,9 +79,14 @@ On some hosts you may find that the unattended-upgrade's cronfile `/etc/cron.dai
     * Default: `[]`
 * `unattended_dl_limit`: Limit the download speed in kb/sec using apt bandwidth limit feature.
     * Default: disabled
-*`unattended_yum_update_cmd`: Just to set YUM, wich kind of update to use: e.g  `yum --sec-severity=Critical upgrade` or `yum --bugfix update-minimal` 
-    * Default:`security-severity:Critical`
-    
+*`unattended_yum_update_cmd`: Just to set YUM, wich kind of update to use:
+      * `default`                            = yum upgrade
+      * `security`                           = yum --security upgrade
+      * `security-severity:Critical`         = yum --sec-severity=Critical upgrade
+      *  `minimal`                            = yum --bugfix update-minimal
+      * `minimal-security`                   = yum --security update-minimal
+      * `minimal-security-severity:Critical` =  --sec-severity=Critical update-minimal 
+      
 
 ## Origins Patterns (Ubuntu/Debian only)
 
