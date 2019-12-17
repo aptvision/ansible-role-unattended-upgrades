@@ -1,6 +1,6 @@
 # The following command enables auto updates
 
-APT::Periodic::Unattended-Upgrade {% if unattended_enabled %}1{% else %}0{% endif %};
+APT::Periodic::Unattended-Upgrade {% if unattended_enable %}1{% else %}0{% endif %};
 
 {% if unattended_update_package_list is defined %}
 APT::Periodic::Update-Package-Lists "{{unattended_update_package_list}}";
