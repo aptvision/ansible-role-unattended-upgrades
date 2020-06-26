@@ -29,12 +29,12 @@
     group: root
     mode: 0644
 
-- name: "Add cron to cleanup old packages"
+- name: "Add cron to autoremove old packages"
   cron:
-    name: apt autoclean
+    name: apt autoremove
     weekday: "*"
     minute: "0"
     hour: "7"
     user: root
-    job: "/usr/bin/apt-get autremove >> /var/log/apt/autoclean.log"
-    cron_file: apt-autoclean
+    job: "/usr/bin/apt-get autoremove -y >> /var/log/apt/autoremove.log"
+    cron_file: apt-autoremove
