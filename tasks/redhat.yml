@@ -1,17 +1,10 @@
 ---
-- name: Install yum-cron.
-  yum:
-    name: yum-cron
-    state: present
-    enablerepo: "rhel-7-server-optional-rpms"
-
-- name: Ensure yum-cron is running and enabled on boot.
-  service:
-    name: yum-cron
-    state: started
-    enabled: yes
-
-- name: Configure autoupdates
-  template:
-    src: "redhat/yum-cron.conf.j2"
-    dest: "/etc/yum/yum-cron.conf"
+- name: "Add cron to upgrade yum security patches"
+  cron:
+    name: yum security upgrade
+    weekday: "*"
+    minute: "0"
+    hour: "6"
+    user: root
+    job: "YUMINTERACTIVE=0 /usr/sbin/yum --security upgrade >> /var/log/yum-security-upgrade.log"
+    cron_file: yum-security-upgrade
