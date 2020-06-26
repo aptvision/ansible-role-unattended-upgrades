@@ -6,5 +6,5 @@
     minute: "0"
     hour: "6"
     user: root
-    job: "YUMINTERACTIVE=0 /bin/yum --security upgrade >> /var/log/yum-security-upgrade.log"
+    job: "/bin/yum --security upgrade -y >> /var/log/yum-security-upgrade.log"
     cron_file: yum-security-upgrade
