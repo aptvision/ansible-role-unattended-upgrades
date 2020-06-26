@@ -28,3 +28,13 @@
     owner: root
     group: root
     mode: 0644
+
+- name: "Add cron to cleanup old packages"
+  cron:
+    name: apt autoclean
+    weekday: "*"
+    minute: "0"
+    hour: "7"
+    user: root
+    job: "/usr/bin/apt-get autremove >> /var/log/apt/autoclean.log"
+    cron_file: apt-autoclean
