@@ -4,7 +4,7 @@ echo $(date -u) "Updating apt cache"
 /usr/bin/apt-get update
 
 echo $(date -u) "Upgrading security packages"
-/usr/bin/apt-get upgrade -s | grep ^Inst | grep -i Security' | awk -F " " {'print $2'} | xargs apt-get install -y
+/usr/bin/apt-get upgrade -s | grep ^Inst | grep -i 'Security' | awk -F " " {'print $2'} | xargs apt-get install -y
 
 echo $(date -u) "Cleaning up unused packages"
 /usr/bin/apt-get autoremove -y
