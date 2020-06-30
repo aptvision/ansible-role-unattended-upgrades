@@ -1,7 +1,19 @@
- - include: ubuntu-debian.yml
-   tags: unattended
-   when: ansible_distribution == "Ubuntu"
+---
 
- - include: redhat.yml
-   tags: unattended
-   when: ansible_distribution == "RedHat"
+- name: "Ensure auto upgrade security packages script is up to date"
+  template:
+    src: "apply-security-upgrades-{{ ansible_pkg_mgr }}.sh.j2"
+    dest: /usr/local/bin/apply-security-upgrades.sh
+    owner: root
+    group: root
+    mode: '0700'
+
+- name: "Add cron to upgrade security packages"
+  cron:
+    name: auto upgrade security upgrades
+    weekday: "*"
+    minute: "0"
+    hour: "6"
+    user: root
+    job: "/usr/local/bin/apply-security-upgrades.sh >> /var/log/unattended-security-upgrades.log"
+    cron_file: unattended-security-upgrades

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo $(date -u) "Upgrading security packages"
+/bin/yum --security upgrade -y
+
+echo $(date -u) "Cleaning up unused packages"
+/bin/yum autoremove -y
+
+echo $(date -u) "Done"
