@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export DEBIAN_FRONTEND=noninteractive
+
 echo $(date -u) "Updating apt cache"
 /usr/bin/apt-get update
 
